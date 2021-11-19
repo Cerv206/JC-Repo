@@ -1,0 +1,46 @@
+Step 1: Create, Extract, Compress, and Manage tar Backup Archives
+Command to extract the TarDocs.tar archive to the current directory: tar -xf TarDocs.tar
+
+
+Command to create the Javaless_Doc.tar archive from the TarDocs/ directory, while excluding the TarDocs/Documents/Java directory: tar cvf Javaless_Docs.tar --exclude=”Java” TarDocs/
+Command to ensure Java/ is not in the new Javaless_Docs.tar archive: tar tvf Javaless_Docs.tar  | grep Java
+ 
+Critical Analysis Question
+Why wouldn't you use the options -x and -c at the same time with tar?
+They don’t work together, -x flag extracts whale the - c flag creates.
+
+Step 2: Create, Manage, and Automate Cron Jobs
+Cron job for backing up the /var/log/auth.log file: 
+0 06 * * 3 tar -czf /auth_backup.tgz /var/log/auth.log
+
+Step 3: Write Basic Bash Scripts
+Brace expansion command to create the four subdirectories:
+ Mkdir ~/backups/{freemem,diskuse,openlist,freedisk}
+Paste your system.sh script edits below:
+ #!/bin/bash
+Freemem_tool -h > ~/backups/freemem/free_mem.txt
+Diskuse_tool -h > ~/backups/diskuse/disk_usage.txt
+Openlist_tool >  ~/backups/openlist/open_list.txt
+Freedisk_tool -h > ~/backups/freedisk/free_disk.tx
+Command to make the system.sh script executable:
+	Chmod +x <file name>
+
+
+Step 4. Manage Log File Sizes
+Run sudo nano /etc/logrotate.conf to edit the logrotate configuration file.
+
+ Configure a log rotation scheme that backs up authentication messages to the /var/log/auth.log.
+
+
+Add your config file edits below:
+/var/log/auth.log {
+Weekly
+Rotate 7
+Notifempty
+Delaycompress 
+Missingok 
+}
+
+
+
+
